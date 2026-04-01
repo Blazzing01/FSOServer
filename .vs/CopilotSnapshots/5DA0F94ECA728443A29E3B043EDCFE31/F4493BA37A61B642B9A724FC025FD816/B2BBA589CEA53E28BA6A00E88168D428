@@ -1,0 +1,63 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Lidgren.Network;
+using Spectre.Console;
+using FSOServer.Packets;
+using FSOServer.World;
+
+namespace FSOServer.Managers
+{
+    public class ServerManager
+    {
+        private DatabaseManager databaseManager;
+        private GameWorld gameWorld;
+        private NetPeerConfiguration _config;
+        private NetServer _server;
+
+        public ServerManager(DatabaseManager Database, GameWorld World)
+        {
+            databaseManager = Database;
+            gameWorld = World;
+
+            AnsiConsole.MarkupLine("[green]Initializing server...[/]");
+            _config = new NetPeerConfiguration("networkGame") { Port = 14241 };
+            _config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
+
+            _server = new NetServer(_config);
+            _server.Start();
+            AnsiConsole.MarkupLine("[green]Server initialized.[/]");
+
+            _ = System.Threading.Tasks.Task.Run(() => ProcessLoop());
+        }
+
+        private void ProcessLoop()
+        {
+            NetIncomingMessage msg;
+            while (true)
+            {
+                if ((msg = _server.ReadMessage()) != null)
+                {
+                    switch (msg.MessageType)
+                    {
+                        case NetIncomingMessageType.ConnectionApproval:
+                            break;
+                        case NetIncomingMessageType.Data:
+                            HandleData(msg);
+                            break;
+                        default:
+                            AnsiConsole.MarkupLine($"[yellow]Unhandled message type: {msg.MessageType}[/]");
+                            break;
+                    }
+                    _server.Recycle(msg);
+                }
+            }
+        }
+
+        private void HandleData(NetIncomingMessage msg)
+        {
+            var type = (PacketType)msg.ReadInt16();
+            var cmd = PacketFactory.GetCommand(type);
+        }
+    }
+}

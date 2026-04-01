@@ -1,0 +1,20 @@
+﻿using FSOServer.Managers;
+using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Text;
+
+namespace FSOServer
+{
+    public class GameServer
+    {
+        private DatabaseManager _DBManager;
+        private ServerManager _ServerManager;
+        public GameServer()
+        {
+            _DBManager = new DatabaseManager();
+            _ServerManager = new ServerManager(_DBManager);
+        }
+
+    }
+}

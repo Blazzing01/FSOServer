@@ -1,0 +1,58 @@
+﻿using FSOServer;
+using Spectre.Console;
+using System;
+
+internal class Program
+{
+    static void Main(string[] args)
+    {
+        var gameServer = new GameServer();
+        AnsiConsole.MarkupLine("[cyan]Type 'help' for available commands[/]");
+
+        ReadConsoleInput();
+    }
+
+    static void ReadConsoleInput()
+    {
+        while (true)
+        {
+            AnsiConsole.Markup("[yellow]>[/] ");
+            string input = Console.ReadLine() ?? "";
+            input = input.ToLower().Trim();
+
+            if (string.IsNullOrEmpty(input))
+                continue;
+
+            switch (input)
+            {
+                case "help":
+                    DisplayHelp();
+                    break;
+
+                case "status":
+                    AnsiConsole.MarkupLine("[green]Server is running[/]");
+                    break;
+
+                case "stop":
+                case "exit":
+                case "quit":
+                    AnsiConsole.MarkupLine("[yellow]Shutting down...[/]");
+                    return;
+
+                default:
+                    AnsiConsole.MarkupLine($"[red]Unknown command: '{input}'. Type 'help' for commands.[/]");
+                    break;
+            }
+        }
+    }
+
+    static void DisplayHelp()
+    {
+        AnsiConsole.MarkupLine(@"
+[cyan]Available Commands:[/]
+  [green]help[/]     - Display this help message
+  [green]status[/]   - Show server status
+  [green]stop[/]     - Shutdown the server
+");
+    }
+}

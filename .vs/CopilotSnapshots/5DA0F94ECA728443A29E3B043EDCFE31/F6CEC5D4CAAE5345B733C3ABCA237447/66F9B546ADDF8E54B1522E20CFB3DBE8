@@ -1,0 +1,93 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Lidgren.Network;
+using Spectre.Console;
+using FSOServer.Packets;
+
+namespace FSOServer.Managers
+{
+    public class PacketEventArgs : EventArgs
+    {
+        public PacketType PacketType { get; set; }
+        public NetIncomingMessage Message { get; set; }
+    }
+
+    public class ServerManager
+    {
+        private DatabaseManager databaseManager;
+        private PacketDispatcher packetDispatcher;
+
+        private NetPeerConfiguration _config;
+        private NetServer _server;
+        private CancellationTokenSource _cancellationTokenSource;
+
+        public ServerManager(DatabaseManager Database)
+        {
+            databaseManager = Database;
+            packetDispatcher = new PacketDispatcher();
+        }
+
+        public PacketDispatcher PacketDispatcher => packetDispatcher;
+
+        public void Initialize()
+        {
+            AnsiConsole.MarkupLine("[green]Initializing server...[/]");
+            _config = new NetPeerConfiguration("networkGame") { Port = 14241 };
+            _config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
+            _server = new NetServer(_config);
+            AnsiConsole.MarkupLine("[green]Server initialized.[/]");
+        }
+
+        public async Task RunAsync()
+        {
+            _server.Start();
+            _cancellationTokenSource = new CancellationTokenSource();
+            AnsiConsole.MarkupLine("[green]Server now reading messages.[/]");
+
+            try
+            {
+                while (!_cancellationTokenSource.Token.IsCancellationRequested)
+                {
+                    NetIncomingMessage inc;
+                    if ((inc = _server.ReadMessage()) == null)
+                    {
+                        await Task.Delay(10, _cancellationTokenSource.Token);
+                        continue;
+                    }
+
+                    switch (inc.MessageType)
+                    {
+                        case NetIncomingMessageType.ConnectionApproval:
+                            break;
+                        case NetIncomingMessageType.Data:
+                            SortPacket(inc);
+                            break;
+                    }
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                AnsiConsole.MarkupLine("[yellow]Server shutdown requested.[/]");
+            }
+        }
+
+        public void Stop()
+        {
+            _cancellationTokenSource?.Cancel();
+            _server?.Shutdown("Server shutting down");
+        }
+
+        private void SortPacket(NetIncomingMessage inc)
+        {
+            var packetType = (PacketType)inc.ReadByte();
+            var args = new PacketEventArgs { PacketType = packetType, Message = inc };
+
+            packetDispatcher.Dispatch(packetType, this, args);
+        }
+
+
+    }
+}

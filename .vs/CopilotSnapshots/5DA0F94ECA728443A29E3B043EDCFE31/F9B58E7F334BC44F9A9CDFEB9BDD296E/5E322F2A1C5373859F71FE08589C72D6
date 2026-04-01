@@ -1,0 +1,113 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Lidgren.Network;
+using Spectre.Console;
+using FSOServer.Packets;
+
+namespace FSOServer.Managers
+{
+    public class PacketEventArgs : EventArgs
+    {
+        public PacketType PacketType { get; set; }
+        public NetIncomingMessage Message { get; set; }
+    }
+
+    public class ServerManager
+    {
+        private DatabaseManager databaseManager;
+        private PacketDispatcher packetDispatcher;
+
+        private NetPeerConfiguration _config;
+        private NetServer _server;
+
+        public ServerManager(DatabaseManager Database)
+        {
+            databaseManager = Database;
+            packetDispatcher = new PacketDispatcher();
+        }
+
+        public PacketDispatcher PacketDispatcher => packetDispatcher;
+
+        public void StartServer()
+        {
+            AnsiConsole.MarkupLine("[green]Starting server...[/]");
+            _config = new NetPeerConfiguration("networkGame") { Port = 14241 };
+            _config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
+            _server = new NetServer(_config);
+            AnsiConsole.MarkupLine("[green]Server Started...[/]");
+        }
+
+        public void Run()
+        {
+            _server.Start();
+            AnsiConsole.MarkupLine("[green]Server now reading messages.[/]");
+
+            while (true)
+            {
+                NetIncomingMessage inc;
+                if ((inc = _server.ReadMessage()) == null) continue;
+                switch (inc.MessageType)
+                {
+                    case NetIncomingMessageType.ConnectionApproval:
+                        break;
+                    case NetIncomingMessageType.Data:
+                        SortPacket(inc);
+                        break;
+                }
+            }
+        }
+
+        private void SortPacket(NetIncomingMessage inc)
+        {
+            var packetType = (PacketType)inc.ReadByte();
+            var args = new PacketEventArgs { PacketType = packetType, Message = inc };
+
+            // Raise the general event
+            OnPacketReceived?.Invoke(this, args);
+
+            // Raise specific packet type events
+            switch (packetType)
+            {
+                case PacketType.Incoming_LoginRequest:
+                    OnLoginRequest?.Invoke(this, args);
+                    break;
+                case PacketType.Incoming_CharacterListRequest:
+                    OnCharacterListRequest?.Invoke(this, args);
+                    break;
+                case PacketType.Incoming_MapDataRequest:
+                    OnMapDataRequest?.Invoke(this, args);
+                    break;
+                case PacketType.Incoming_MapTransitionReuqest:
+                    OnMapTransitionRequest?.Invoke(this, args);
+                    break;
+                case PacketType.Incoming_CharacterMoveRequest:
+                    OnCharacterMoveRequest?.Invoke(this, args);
+                    break;
+                case PacketType.Incoming_InteractRequest:
+                    OnInteractRequest?.Invoke(this, args);
+                    break;
+                case PacketType.Incoming_AttackRequest:
+                    OnAttackRequest?.Invoke(this, args);
+                    break;
+                case PacketType.Incoming_WhosOnlineRequest:
+                    OnWhosOnlineRequest?.Invoke(this, args);
+                    break;
+                case PacketType.Incoming_FriendsOnlineRequest:
+                    OnFriendsOnlineRequest?.Invoke(this, args);
+                    break;
+                case PacketType.Incoming_InventorySwapRequest:
+                    OnInventorySwapRequest?.Invoke(this, args);
+                    break;
+                case PacketType.Incoming_InventoryDropRequest:
+                    OnInventoryDropRequest?.Invoke(this, args);
+                    break;
+                case PacketType.Incoming_InventoryEquipRequest:
+                    OnInventoryEquipRequest?.Invoke(this, args);
+                    break;
+            }
+        }
+
+
+    }
+}

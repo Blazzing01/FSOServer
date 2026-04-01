@@ -1,0 +1,81 @@
+﻿using FSOServer;
+using Spectre.Console;
+using System;
+using System.Threading.Tasks;
+
+internal class Program
+{
+    static async Task Main(string[] args)
+    {
+        var gameServer = new GameServer();
+        gameServer.Initialize();
+
+        // Run the server on a background task
+        var serverTask = gameServer.RunAsync();
+
+        // Accept console commands on the main thread
+        await HandleConsoleInput(gameServer, serverTask);
+    }
+
+    static async Task HandleConsoleInput(GameServer gameServer, Task serverTask)
+    {
+        AnsiConsole.MarkupLine("[cyan]Type 'help' for available commands[/]");
+
+        var inputTask = Task.Run(() => ReadConsoleCommands(gameServer, serverTask));
+
+        try
+        {
+            await Task.WhenAny(serverTask, inputTask);
+        }
+        catch (OperationCanceledException)
+        {
+            // Expected when server shuts down
+        }
+    }
+
+    static void ReadConsoleCommands(GameServer gameServer, Task serverTask)
+    {
+        while (!serverTask.IsCompleted)
+        {
+            AnsiConsole.Markup("[yellow]>[/] ");
+            var input = Console.ReadLine()?.ToLower().Trim() ?? "";
+
+            switch (input)
+            {
+                case "stop":
+                case "exit":
+                case "quit":
+                    AnsiConsole.MarkupLine("[yellow]Shutting down server...[/]");
+                    gameServer.Stop();
+                    break;
+
+                case "help":
+                    DisplayHelp();
+                    break;
+
+                case "status":
+                    AnsiConsole.MarkupLine("[green]Server is running[/]");
+                    break;
+
+                case "":
+                    continue;
+
+                default:
+                    AnsiConsole.MarkupLine($"[red]Unknown command: '{input}'[/]");
+                    break;
+            }
+        }
+    }
+
+    static void DisplayHelp()
+    {
+        AnsiConsole.MarkupLine(@"
+[cyan]Available Commands:[/]
+  [green]help[/]     - Display this help message
+  [green]status[/]   - Show server status
+  [green]stop[/]     - Shutdown the server
+  [green]exit[/]     - Shutdown the server
+  [green]quit[/]     - Shutdown the server
+");
+    }
+}

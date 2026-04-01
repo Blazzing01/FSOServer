@@ -1,0 +1,13 @@
+﻿using FSOServer;
+using System.Threading.Tasks;
+
+internal class Program
+{
+    static async Task Main(string[] args)
+    {
+        var gameServer = new GameServer();
+        gameServer.Initialize();
+
+        await gameServer.RunAsync();
+    }
+}

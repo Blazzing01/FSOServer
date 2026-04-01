@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Lidgren.Network;
+using Spectre.Console;
+
+namespace FSOServer.Managers
+{
+    public class ServerManager
+    {
+        private DatabaseManager databaseManager;
+
+        private NetPeerConfiguration _config;
+        private NetServer _server;
+        public ServerManager(DatabaseManager Database)
+        {
+            databaseManager = Database;
+        }
+
+        public void StartServer()
+        {
+            AnsiConsole.MarkupLine("[green]Starting server...[/]");
+            _config = new NetPeerConfiguration("networkGame") { Port = 14241 };
+            _config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
+            _server = new NetServer(_config);
+            AnsiConsole.MarkupLine("[green]Server Started...[/]");
+        }
+
+        public void Run()
+        {
+            _server.Start();
+            AnsiConsole.MarkupLine("[green]Server now reading messages.[/]");
+
+            while (true)
+            {
+                NetIncomingMessage inc;
+                if ((inc = _server.ReadMessage()) == null) continue;
+                switch (inc.MessageType)
+                {
+                    case NetIncomingMessageType.ConnectionApproval:
+                        break;
+                    case NetIncomingMessageType.Data:
+                        SortPacket(inc);
+                        break;
+                }
+            }
+        }
+
+        private void SortPacket(NetIncomingMessage inc)
+        {
+            var packetType = (PacketType)inc.ReadByte();
+        }
+
+
+    }
+}

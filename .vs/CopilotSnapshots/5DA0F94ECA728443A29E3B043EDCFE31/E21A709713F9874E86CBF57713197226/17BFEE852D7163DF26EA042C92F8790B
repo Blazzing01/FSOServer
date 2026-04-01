@@ -1,0 +1,11 @@
+﻿using FSOServer;
+using System.Threading;
+
+internal class Program
+{
+    static void Main(string[] args)
+    {
+        var gameServer = new GameServer();
+        Thread.Sleep(Timeout.Infinite);
+    }
+}

@@ -1,0 +1,12 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace FSOServer.Packets
+{
+    public enum PacketType : byte
+    {
+        1 = LoginRequest,
+
+    }
+}

@@ -1,0 +1,12 @@
+﻿namespace FSOServer
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            var GameServer = new GameServer();
+            GameServer.Initialize();
+
+        }
+    }
+}

@@ -1,0 +1,87 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Lidgren.Network;
+using Spectre.Console;
+using FSOServer.Packets;
+using FSOServer.World;
+
+namespace FSOServer.Managers
+{
+    public class ServerManager
+    {
+        private DatabaseManager databaseManager;
+        private GameWorld gameWorld;
+        private NetPeerConfiguration _config;
+        private NetServer _server;
+        private GameServer _Gameserver;
+
+        public ServerManager(DatabaseManager Database, GameWorld World, GameServer server)
+        {
+            _Gameserver = server;
+            databaseManager = Database;
+            gameWorld = World;
+
+            AnsiConsole.MarkupLine("[green]Initializing server...[/]");
+            _config = new NetPeerConfiguration("networkGame") { Port = 14241 };
+            _config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
+
+            _server = new NetServer(_config);
+            _server.Start();
+            AnsiConsole.MarkupLine("[green]Server initialized.[/]");
+
+            Task.Run(() => ProcessLoop());
+        }
+
+        private void ProcessLoop()
+        {
+            AnsiConsole.MarkupLine("[green]Reading messages.[/]");
+
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            var updateInterval = TimeSpan.FromMilliseconds(1000.0 / 60.0); // ~16.67ms per frame for 60 FPS
+
+            NetIncomingMessage msg;
+            while (true)
+            {
+                if ((msg = _server.ReadMessage()) != null)
+                {
+                    switch (msg.MessageType)
+                    {
+                        case NetIncomingMessageType.ConnectionApproval:
+                            break;
+                        case NetIncomingMessageType.Data:
+                            HandleData(msg);
+                            break;
+                        default:
+                            AnsiConsole.MarkupLine($"[yellow]Unhandled message type: {msg.MessageType}[/]");
+                            break;
+                    }
+                    _server.Recycle(msg);
+                }
+
+                // Update game state 60 times per second
+                if (stopwatch.Elapsed >= updateInterval)
+                {
+                    _Gameserver.Update();
+                    stopwatch.Restart();
+                }
+
+                System.Threading.Thread.Sleep(1);
+            }
+        }
+
+        private void HandleData(NetIncomingMessage msg)
+        {
+            var type = (PacketType)msg.ReadInt16();
+            var cmd = PacketFactory.GetCommand(type);
+            if (cmd != null)
+            {
+                cmd.Run(_Gameserver, gameWorld, databaseManager);
+            }
+            else
+            {      
+                AnsiConsole.MarkupLine($"[red]Unknown packet type: {type}[/]");
+            }
+        }
+    }
+}

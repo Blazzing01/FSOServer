@@ -1,0 +1,76 @@
+﻿using FSOServer;
+using Spectre.Console;
+using System;
+using System.Threading.Tasks;
+
+internal class Program
+{
+    static async Task Main(string[] args)
+    {
+        var gameServer = new GameServer();
+        gameServer.Initialize();
+
+        // Run server and console input concurrently
+        var serverTask = gameServer.RunAsync();
+        var consoleTask = ReadConsoleInput(gameServer);
+
+        await Task.WhenAll(serverTask, consoleTask);
+    }
+
+    static async Task ReadConsoleInput(GameServer gameServer)
+    {
+        AnsiConsole.MarkupLine("[cyan]Type 'help' for available commands[/]");
+
+        while (true)
+        {
+            try
+            {
+                AnsiConsole.Markup("[yellow]>[/] ");
+                string input = Console.ReadLine() ?? "";
+                input = input.ToLower().Trim();
+
+                if (string.IsNullOrEmpty(input))
+                    continue;
+
+                switch (input)
+                {
+                    case "help":
+                        DisplayHelp();
+                        break;
+
+                    case "status":
+                        AnsiConsole.MarkupLine("[green]Server is running[/]");
+                        break;
+
+                    case "stop":
+                    case "exit":
+                    case "quit":
+                        AnsiConsole.MarkupLine("[yellow]Shutting down server...[/]");
+                        gameServer.Stop();
+                        await Task.Delay(1000); // Give server time to shut down
+                        return;
+
+                    default:
+                        AnsiConsole.MarkupLine($"[red]Unknown command: '{input}'. Type 'help' for commands.[/]");
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                AnsiConsole.MarkupLine($"[red]Error: {ex.Message}[/]");
+            }
+        }
+    }
+
+    static void DisplayHelp()
+    {
+        AnsiConsole.MarkupLine(@"
+[cyan]Available Commands:[/]
+  [green]help[/]     - Display this help message
+  [green]status[/]   - Show server status
+  [green]stop[/]     - Shutdown the server
+  [green]exit[/]     - Shutdown the server
+  [green]quit[/]     - Shutdown the server
+");
+    }
+}

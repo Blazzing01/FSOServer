@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace FSOServer.World
+{
+    internal class GamePlayer
+    {
+        private int PlayerID;
+        private string PlayerName;
+        private GameMap CurrentMap;
+        private ushort LocationX, LocationY;
+
+        private string Bio;
+
+        private long Gold, Gems;
+
+        private int Strength, Stamina, Intelligence, Wisdom, Mysticism;
+        private byte Gender, Class;
+
+        private int Slash_Level, Thrust_Level, Parry_Level, HeavyArms_Level, AxeFighting_Level, Swordsmanship_Level, Fencing_Level, Magery_Level, BlackArts_Level,
+            UnholyCombat_Level, Archery_Level, Blessing_Level, Sorcery_Level, Musicianship_Level, StaffFighting_Level, Illusion_Level, HammerWielding_Level,
+            Fire_Level, Water_Level, Earth_Level, Wind_Level, Block_Level, MartialArts_Level, Wizardry_Level, Wrath_Level, Punch_Level, Cooking_Level, Alchemy_Level,
+            Lumberjacking_Level, Carpentry_Level, Fishing_Level, Blacksmithing_Level, Mining_Level, Shoveling_Level, Farming_Level;
+
+        private int Slash_xp, Thrust_xp, Parry_xp, HeavyArms_xp, AxeFighting_xp, Swordsmanship_xp, Fencing_xp, Magery_xp, BlackArts_xp,
+            UnholyCombat_xp, Archery_xp, Blessing_xp, Sorcery_xp, Musicianship_xp, StaffFighting_xp, Illusion_xp, HammerWielding_xp,
+            Fire_xp, Water_xp, Earth_xp, Wind_xp, Block_xp, MartialArts_xp, Wizardry_xp, Wrath_xp, Punch_xp, Cooking_xp, Alchemy_xp,
+            Lumberjacking_xp, Carpentry_xp, Fishing_xp, Blacksmithing_xp, Mining_xp, Shoveling_xp, Farming_xp;
+
+        public void Update()
+        {
+
+        }
+        
+    }
+}
