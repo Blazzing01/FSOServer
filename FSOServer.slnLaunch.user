@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "FSOServer.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "..\\FSOClient\\FSOClient.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

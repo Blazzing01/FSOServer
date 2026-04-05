@@ -3,8 +3,33 @@
   "WorkspaceRootPath": "C:\\dev\\FSOServer\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{476533F6-3541-FD26-6911-0586C3128E2F}|..\\FSOClient\\FSOClient.csproj|c:\\dev\\fsoclient\\scenes\\settingscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{476533F6-3541-FD26-6911-0586C3128E2F}|..\\FSOClient\\FSOClient.csproj|c:\\dev\\fsoclient\\scenes\\newaccountscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{476533F6-3541-FD26-6911-0586C3128E2F}|..\\FSOClient\\FSOClient.csproj|c:\\dev\\fsoclient\\scenes\\menuscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{476533F6-3541-FD26-6911-0586C3128E2F}|..\\FSOClient\\FSOClient.csproj|c:\\dev\\fsoclient\\scenes\\loginscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{476533F6-3541-FD26-6911-0586C3128E2F}|..\\FSOClient\\FSOClient.csproj|c:\\dev\\fsoclient\\scenes\\communityscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{476533F6-3541-FD26-6911-0586C3128E2F}|..\\FSOClient\\FSOClient.csproj|c:\\dev\\fsoclient\\game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{087A8F69-470B-5F8B-7901-8803A6258B12}|FSOServer.csproj|c:\\dev\\fsoserver\\managers\\servermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{087A8F69-470B-5F8B-7901-8803A6258B12}|FSOServer.csproj|solutionrelative:managers\\servermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{476533F6-3541-FD26-6911-0586C3128E2F}|..\\FSOClient\\FSOClient.csproj|c:\\dev\\fsoclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{087A8F69-470B-5F8B-7901-8803A6258B12}|FSOServer.csproj|c:\\dev\\fsoserver\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{087A8F69-470B-5F8B-7901-8803A6258B12}|FSOServer.csproj|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{087A8F69-470B-5F8B-7901-8803A6258B12}|FSOServer.csproj|c:\\dev\\fsoserver\\gameserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -27,6 +52,110 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "SettingScene.cs",
+              "DocumentMoniker": "C:\\dev\\FSOClient\\Scenes\\SettingScene.cs",
+              "RelativeDocumentMoniker": "..\\FSOClient\\Scenes\\SettingScene.cs",
+              "ToolTip": "C:\\dev\\FSOClient\\Scenes\\SettingScene.cs",
+              "RelativeToolTip": "..\\FSOClient\\Scenes\\SettingScene.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-04T02:56:42.048Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CommunityScene.cs",
+              "DocumentMoniker": "C:\\dev\\FSOClient\\Scenes\\CommunityScene.cs",
+              "RelativeDocumentMoniker": "..\\FSOClient\\Scenes\\CommunityScene.cs",
+              "ToolTip": "C:\\dev\\FSOClient\\Scenes\\CommunityScene.cs",
+              "RelativeToolTip": "..\\FSOClient\\Scenes\\CommunityScene.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-04T02:56:36.146Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "NewAccountScene.cs",
+              "DocumentMoniker": "C:\\dev\\FSOClient\\Scenes\\NewAccountScene.cs",
+              "RelativeDocumentMoniker": "..\\FSOClient\\Scenes\\NewAccountScene.cs",
+              "ToolTip": "C:\\dev\\FSOClient\\Scenes\\NewAccountScene.cs",
+              "RelativeToolTip": "..\\FSOClient\\Scenes\\NewAccountScene.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-04T02:56:30.436Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LoginScene.cs",
+              "DocumentMoniker": "C:\\dev\\FSOClient\\Scenes\\LoginScene.cs",
+              "RelativeDocumentMoniker": "..\\FSOClient\\Scenes\\LoginScene.cs",
+              "ToolTip": "C:\\dev\\FSOClient\\Scenes\\LoginScene.cs",
+              "RelativeToolTip": "..\\FSOClient\\Scenes\\LoginScene.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-04T02:56:22.311Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Menuscene.cs",
+              "DocumentMoniker": "C:\\dev\\FSOClient\\Scenes\\Menuscene.cs",
+              "RelativeDocumentMoniker": "..\\FSOClient\\Scenes\\Menuscene.cs",
+              "ToolTip": "C:\\dev\\FSOClient\\Scenes\\Menuscene.cs",
+              "RelativeToolTip": "..\\FSOClient\\Scenes\\Menuscene.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAwwCQAAACWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-04T02:13:33.582Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Game1.cs",
+              "DocumentMoniker": "C:\\dev\\FSOClient\\Game1.cs",
+              "RelativeDocumentMoniker": "..\\FSOClient\\Game1.cs",
+              "ToolTip": "C:\\dev\\FSOClient\\Game1.cs",
+              "RelativeToolTip": "..\\FSOClient\\Game1.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAgwEEAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-04T02:01:09.125Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\dev\\FSOClient\\Program.cs",
+              "RelativeDocumentMoniker": "..\\FSOClient\\Program.cs",
+              "ToolTip": "C:\\dev\\FSOClient\\Program.cs",
+              "RelativeToolTip": "..\\FSOClient\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-04T02:01:08.127Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\dev\\FSOServer\\.gitignore",
+              "RelativeDocumentMoniker": ".gitignore",
+              "ToolTip": "C:\\dev\\FSOServer\\.gitignore",
+              "RelativeToolTip": ".gitignore",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAAACoAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-04-01T19:42:22.382Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "ServerManager.cs",
               "DocumentMoniker": "C:\\dev\\FSOServer\\Managers\\ServerManager.cs",
               "RelativeDocumentMoniker": "Managers\\ServerManager.cs",
@@ -39,7 +168,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 9,
               "Title": "GameServer.cs",
               "DocumentMoniker": "C:\\dev\\FSOServer\\GameServer.cs",
               "RelativeDocumentMoniker": "GameServer.cs",
